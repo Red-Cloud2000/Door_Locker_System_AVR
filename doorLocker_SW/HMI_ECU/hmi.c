@@ -1,8 +1,13 @@
 /*
- * hmi.c
- *
- *  Created on: Jul 18, 2022
- *  Author: 3bdal
+ ================================================================================================
+ Name        : hmi.c
+
+ Author      : Abdelrahman Hesham
+
+ Description : Human interface functions header file for door locker application.
+
+ Created on  : Jul 16, 2022
+ ================================================================================================
  */
 #include "hmi.h"
 #include "lcd.h"
