@@ -90,25 +90,25 @@ ISR(TIMER2_COMP_vect){
  *******************************************************************************/
 void Timer_Init(const Timer_ConfigType * Config_Ptr){
 
-	if(Config_Ptr->Timer_number == 0){                    /*timer0*/
+	if(Config_Ptr->Timer_number == 0){                        /*timer0*/
 		TCNT0 = (uint8)(Config_Ptr->iValue);              /*set the initial value*/
 		TCCR0 = (TCCR0 & 0xF8) | ((Config_Ptr->clock));   /*set clock value*/
 
 		if(Config_Ptr->mode == overFlow){                 /*overFlow mode*/
 			CLEAR_BIT(TCCR0,WGM01);
 			CLEAR_BIT(TCCR0,WGM00);
-			TIMSK = (1<<TOIE0);                           /*Enable timer interrupt*/
+			TIMSK = (1<<TOIE0);                       /*Enable timer interrupt*/
 		}
 		else if(Config_Ptr->mode == compare){             /*compare mode*/
 			SET_BIT(TCCR0,WGM01);
 			CLEAR_BIT(TCCR0,WGM00);
-			OCR0   = Config_Ptr->compValue;               /*set the compare value*/
-			TIMSK |= (1<<OCIE0);                          /*Enable timer interrupt*/
+			OCR0   = Config_Ptr->compValue;           /*set the compare value*/
+			TIMSK |= (1<<OCIE0);                      /*Enable timer interrupt*/
 		}
 
 	}
 
-	if(Config_Ptr->Timer_number == 1){                    /*timer1*/
+	if(Config_Ptr->Timer_number == 1){                        /*timer1*/
 		TCNT1 = (uint8)(Config_Ptr->iValue);              /*set the initial value*/
 		TCCR1B = (TCCR1B & 0xF8) | ((Config_Ptr->clock)); /*set clock value*/
 
@@ -117,20 +117,20 @@ void Timer_Init(const Timer_ConfigType * Config_Ptr){
 			CLEAR_BIT(TCCR1A,WGM10);
 			CLEAR_BIT(TCCR1B,WGM12);
 			CLEAR_BIT(TCCR1B,WGM13);
-			TIMSK = (1<<TOIE1);                           /*Enable timer interrupt*/
+			TIMSK = (1<<TOIE1);                       /*Enable timer interrupt*/
 		}
 		else if(Config_Ptr->mode == compare){             /*compare mode*/
 			CLEAR_BIT(TCCR1A,WGM11);
 			CLEAR_BIT(TCCR1A,WGM10);
 			SET_BIT(TCCR1B,WGM12);
 			CLEAR_BIT(TCCR1B,WGM13);
-			TIMSK |= (1<<OCIE1A);                         /*Enable timer interrupt*/
-			OCR1A  = Config_Ptr->compValue;               /*set the compare value*/
+			TIMSK |= (1<<OCIE1A);                     /*Enable timer interrupt*/
+			OCR1A  = Config_Ptr->compValue;           /*set the compare value*/
 		}
 
 	}
 
-	if(Config_Ptr->Timer_number == 2){                    /*timer2*/
+	if(Config_Ptr->Timer_number == 2){                        /*timer2*/
 		TCNT2 = (uint8)(Config_Ptr->iValue);              /*set the initial value*/
 		TCCR2 = (TCCR2 & 0xF8) | ((Config_Ptr->clock));   /*set clock value*/
 
@@ -138,13 +138,13 @@ void Timer_Init(const Timer_ConfigType * Config_Ptr){
 			CLEAR_BIT(TCCR2,WGM21);
 			CLEAR_BIT(TCCR2,WGM20);
 			SET_BIT(TIFR,TOV2);
-			TIMSK = (1<<TOIE2);                           /*Enable timer interrupt*/
+			TIMSK = (1<<TOIE2);                       /*Enable timer interrupt*/
 		}
 		else if(Config_Ptr->mode == compare){             /*compare mode*/
 			SET_BIT(TCCR2,WGM21);
 			CLEAR_BIT(TCCR2,WGM20);
-			OCR2 = Config_Ptr->compValue;                 /*set the compare value*/
-			TIMSK |= (1<<OCIE2);                          /*Enable timer interrupt*/
+			OCR2 = Config_Ptr->compValue;             /*set the compare value*/
+			TIMSK |= (1<<OCIE2);                      /*Enable timer interrupt*/
 		}
 	}
 }
