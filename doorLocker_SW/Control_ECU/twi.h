@@ -1,4 +1,4 @@
- /******************************************************************************
+/******************************************************************************
  *
  * Module: TWI(I2C)
  *
@@ -6,7 +6,7 @@
  *
  * Description: Header file for the TWI(I2C) AVR driver
  *
- * Author: Mohamed Tarek
+ * Author: Abdelrahman Hesham
  *
  *******************************************************************************/ 
 
@@ -16,7 +16,6 @@
 #include "std_types.h"
 
 
-#define F_CPU  8000000UL
 /*******************************************************************************
  *                      Preprocessor Macros                                    *
  *******************************************************************************/
@@ -35,24 +34,20 @@
  *******************************************************************************/
 typedef enum
 {
-    NO_PRESCALER,F_CPU_4,F_CPU_16,F_CPU_64_
+	NO_PRESCALER,F_CPU_4,F_CPU_16,F_CPU_64_
 }TWI_PRESCALER;
 
 typedef enum
 {
-    Normal_Mode=100,Fast_Mode=400
+	Normal_Mode=100000,Fast_Mode=4000000,FASTPLUS=1000000,HIGHSPEED=3400000
 }TWI_Bit_Rate;
 
-typedef enum
-{
-    Slave_address = 0x02
-}TWI_ADDRESS;
 
 typedef struct
 {
-    TWI_PRESCALER I2C_Prescaler;
-    TWI_Bit_Rate I2C_Bit_Rate;
-    TWI_ADDRESS I2C_Address;
+	TWI_PRESCALER Prescaler;
+	TWI_Bit_Rate Bit_Rate;
+	uint8 Slave_address;
 }TWI_ConfigType;
 
 /*******************************************************************************

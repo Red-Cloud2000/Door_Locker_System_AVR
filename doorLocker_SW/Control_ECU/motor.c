@@ -1,4 +1,4 @@
- /******************************************************************************
+/******************************************************************************
  *
  * Module: MOTOR
  *
@@ -48,17 +48,26 @@ void DcMotor_Init(void){
  *    [IN]            :  uint8 speed
  *                       speed: decimal value for the required motor speed, it should be from 0 → 100
  *********************************************************************************/
-void DcMotor_Rotate_SOTP(){
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN0_ID,LOGIC_LOW);
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN1_ID,LOGIC_LOW);
 
-}
-void DcMotor_Rotate_CW(){
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN0_ID,LOGIC_LOW);
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN1_ID,LOGIC_HIGH);
-}
-void DcMotor_Rotate_A_CW(){
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN0_ID,LOGIC_HIGH);
-    GPIO_writePin(MOTOR_PORT_ID,MOTOR_PIN1_ID,LOGIC_LOW);
-}
+void DcMotor_Rotate(DcMotor_State state){
 
+/*switch case for determining which state to choose:
+ *      Stop      -   Clock Wise     -    Anti-clock wise
+ *   IN1 , IN2    -    IN1 , IN2     -     IN1 , IN2
+ *    0  ,  0     -     0  ,  1      -      1  ,  0
+ * */
+switch(state){
+case stop:
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_LOW);
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+	break;
+case CW:
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_LOW);
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_HIGH);
+	break;
+case A_CW:
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_HIGH);
+	GPIO_writePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+	break;
+}
+}

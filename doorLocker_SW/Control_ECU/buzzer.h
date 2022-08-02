@@ -18,8 +18,8 @@
  *                                Definitions                                  *
  *******************************************************************************/
 
-#define BUZZER_PORT_ID                 PORTD_ID
-#define BUZZER_PIN_ID                  PIN4_ID
+#define BUZZER_PORT_ID                 PORTA_ID
+#define BUZZER_PIN_ID                  PIN2_ID
 
 /*******************************************************************************
  *                              Functions Prototypes                           *

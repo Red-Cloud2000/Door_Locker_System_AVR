@@ -6,7 +6,7 @@
  *
  * Description: Source file for the TWI(I2C) AVR driver
  *
- * Author: Mohamed Tarek
+ * Author: Abdelrahman Hesham
  *
  *******************************************************************************/
  
@@ -15,40 +15,17 @@
 #include "common_macros.h"
 #include <avr/io.h>
 
-
-
-//TWBR_value = (((F_CPU*1000/(Config_Ptr -> I2C_Bit_Rate))-16)/pow(4,(Config_Ptr -> I2C_Prescaler)));
-//TWBR_value = ((((F_CPU*1000)/(Config_Ptr -> I2C_Bit_Rate))-16)/pow(4,((Config_Ptr -> I2C_Prescaler)+0.5)));
-void TWI_init(const TWI_ConfigType * config_Ptr)
+void TWI_init(const TWI_ConfigType *Config_Ptr)
 {
-    uint8 TWBR_value = 0;
-
-    TWBR_value = ((((F_CPU)/(config_Ptr -> I2C_Bit_Rate))-16)/pow(4,((config_Ptr -> I2C_Prescaler)+0.5)));
-
-    /* Bit Rate: 400.000 kbps using zero pre-scaler TWPS=00 and F_CPU=8Mhz */
-    TWBR = TWBR_value;
-    TWSR = config_Ptr -> I2C_Prescaler;
+    TWBR = 8000000/( (Config_Ptr->Prescaler)*16);  /*according to the SCL Frequency equation with prescaler zero*/
+	TWSR = ((Config_Ptr->Prescaler));
 
     /* Two Wire Bus address my address if any master device want to call me: 0x1 (used in case this MC is a slave device)
        General Call Recognition: Off */
-    TWAR = config_Ptr -> I2C_Address; // my address = 0x01 🙂
+    TWAR = ((Config_Ptr->Slave_address<<1)); // my address = 0x01 :)
 
     TWCR = (1<<TWEN); /* enable TWI */
 }
-
-
-//void TWI_init(void)
-//{
-    /* Bit Rate: 400.000 kbps using zero pre-scaler TWPS=00 and F_CPU=8Mhz */
-  //  TWBR = 0x02;
-	//TWSR = 0x00;
-	
-    /* Two Wire Bus address my address if any master device want to call me: 0x1 (used in case this MC is a slave device)
-       General Call Recognition: Off */
-    //TWAR = 0b00000010; // my address = 0x01 :)
-	
-    //TWCR = (1<<TWEN); /* enable TWI */
-//}
 
 void TWI_start(void)
 {

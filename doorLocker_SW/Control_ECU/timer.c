@@ -71,8 +71,8 @@ ISR(TIMER2_COMP_vect){
 
 void Timer_Init(const Timer_ConfigType * Config_Ptr){
 
-	if(Config_Ptr->type == 0){
-		TCNT0 = (uint8 *)(Config_Ptr->iValue);
+	if(Config_Ptr->Timer_number == 0){
+		TCNT0 = (uint8)(Config_Ptr->iValue);
 		TCCR0 = (TCCR0 & 0xF8) | ((Config_Ptr->clock));
 
 		if(Config_Ptr->mode == overFlow){
@@ -89,8 +89,8 @@ void Timer_Init(const Timer_ConfigType * Config_Ptr){
 
 	}
 
-	if(Config_Ptr->type == 1){
-		TCCR1B = (TCCR1B & 0xF8) | ((Config_Ptr->clock));
+	if(Config_Ptr->Timer_number == 1){
+		TCCR1B = (uint8)(TCCR1B & 0xF8) | ((Config_Ptr->clock));
 		TCNT1 = Config_Ptr->iValue;
 		if(Config_Ptr->mode == overFlow){
 			CLEAR_BIT(TCCR1A,WGM11);
@@ -111,8 +111,8 @@ void Timer_Init(const Timer_ConfigType * Config_Ptr){
 
 	}
 
-	if(Config_Ptr->type == 2){
-		TCNT2 = (uint8 *)Config_Ptr->iValue;
+	if(Config_Ptr->Timer_number == 2){
+		TCNT2 = (uint8)Config_Ptr->iValue;
 		TCCR2 = (TCCR2 & 0xF8) | ((Config_Ptr->clock));
 
 		if(Config_Ptr->mode == overFlow){

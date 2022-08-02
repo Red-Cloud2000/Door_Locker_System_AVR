@@ -6,7 +6,7 @@
  *
  * Description: Header file for the UART AVR driver
  *
- * Author: Mohamed Tarek
+ * Author: Abdelrahman Hesham
  *
  *******************************************************************************/
 
@@ -21,25 +21,25 @@
 typedef enum
 {
 	Paraity_Disabled,Paraity_Rserved,Even_Paraity,Odd_Paraity
-}USART_Parity_Mode;
+}UART_Parity_Mode;
 
 typedef enum
 {
-	One_bit,Two_bit
-}USART_stop_bit;
+	One_Stop_bit,Two_Stop_bit
+}UART_stop_bit;
 
 typedef enum
 {
 	five_bit,six_bit,seven_bit,eight_bit,nine_bit=7
-}USART_Character_Size;
+}UART_Character_Size;
 
 typedef struct
 {
-	USART_Parity_Mode parity_mode;
-	USART_stop_bit stop_Bit_num;
-	USART_Character_Size Data_bit;
+	UART_Parity_Mode parity_mode;
+	UART_stop_bit stop_Bit_num;
+	UART_Character_Size Data_bit;
 	uint32 Baud_Rate;
-}USART_ConfigType;
+}UART_ConfigType;
 
 /*******************************************************************************
  *                      Functions Prototypes                                   *
@@ -52,7 +52,7 @@ typedef struct
  * 2. Enable the UART.
  * 3. Setup the UART baud rate.
  */
-void UART_init(const USART_ConfigType * Config_Ptr);
+void UART_init(const UART_ConfigType * Config_Ptr);
 
 /*
  * Description :

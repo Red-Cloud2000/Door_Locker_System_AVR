@@ -6,7 +6,7 @@
  *
  * Description: Source file for the UART AVR driver
  *
- * Author: Mohamed Tarek
+ * Author: Abdelrahman Hesham
  *
  *******************************************************************************/
 
@@ -25,7 +25,7 @@
  * 2. Enable the UART.
  * 3. Setup the UART baud rate.
  */
-void UART_init(const USART_ConfigType * Config_Ptr)
+void UART_init(const UART_ConfigType * Config_Ptr)
 {
 	uint16 ubrr_value = 0;
 
@@ -43,7 +43,7 @@ void UART_init(const USART_ConfigType * Config_Ptr)
 	 ***********************************************************************/ 
 	UCSRB = (1<<RXEN) | (1<<TXEN);
 
-	if((Config_Ptr -> Data_bit) == 7)
+	/*if((Config_Ptr -> Data_bit) == 7)
 	{
 		UCSRB = (UCSRB & 0xFB) | (UCSZ2 << 2);
 	}
@@ -51,7 +51,7 @@ void UART_init(const USART_ConfigType * Config_Ptr)
 	{
 		CLEAR_BIT(UCSRB,UCSZ2);
 		//UCSZ2 = 0;
-	}
+	}*/
 	/************************** UCSRC Description **************************
 	 * URSEL   = 1 The URSEL must be one when writing the UCSRC
 	 * UMSEL   = 0 Asynchronous Operation
@@ -60,10 +60,11 @@ void UART_init(const USART_ConfigType * Config_Ptr)
 	 * UCSZ1:0 = 11 For 8-bit data mode
 	 * UCPOL   = 0 Used with the Synchronous operation only
 	 ***********************************************************************/ 	
-	UCSRC = (UCSRC & 0xCF) | ((Config_Ptr -> parity_mode) << 4);
-	UCSRC = (UCSRC & 0xF7) | ((Config_Ptr -> stop_Bit_num) << 3);
-	UCSRC = (UCSRC & 0xF9) | ((Config_Ptr -> Data_bit) << 1);
 	UCSRC = (1<<URSEL);
+	UCSRC = (UCSRC & 0xF9) | ((Config_Ptr -> Data_bit << 1));
+
+	UCSRC = (UCSRC & 0xCF) | ((Config_Ptr -> parity_mode << 4));
+	UCSRC = (UCSRC & 0xF7) | ((Config_Ptr -> stop_Bit_num << 3));
 
 	/* Calculate the UBRR register value */
 	ubrr_value = (uint16)(((F_CPU / ((Config_Ptr -> Baud_Rate) * 8UL))) - 1);

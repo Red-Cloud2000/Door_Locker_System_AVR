@@ -21,12 +21,18 @@ typedef enum
 
 typedef enum
 {
+	Timer0 , Timer1 , Timer2
+}TIMER_NO;
+
+
+typedef enum
+{
 	overFlow , compare
 }Timer_Mode;
 
 typedef struct
 {
-	uint8 type;
+	TIMER_NO Timer_number;
 	Timer_Mode  mode;
 	uint16 iValue;      //initial value
 	uint16 compValue;   //compare value

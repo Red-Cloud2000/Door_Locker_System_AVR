@@ -12,6 +12,9 @@
 
 #include "buzzer.h"
 #include "gpio.h"
+#include "common_macros.h"
+#include "avr/io.h"
+
 
 /*******************************************************************************
  * [Function Name] : buzzer_Init

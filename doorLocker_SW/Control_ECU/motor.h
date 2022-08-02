@@ -16,17 +16,17 @@
 
 #include "std_types.h"
 
-#define MOTOR_PORT_ID      PORTD_ID
-#define MOTOR_PIN0_ID      PIN6_ID
-#define MOTOR_PIN1_ID      PIN7_ID
+#define MOTOR_PORT_ID      PORTA_ID
+#define MOTOR_PIN0_ID      PIN0_ID
+#define MOTOR_PIN1_ID      PIN1_ID
 
-
+//enum of values of the motor state
+typedef enum{
+	stop,CW,A_CW
+}DcMotor_State;
 
 void DcMotor_Init(void);
 
-
-void DcMotor_Rotate_SOTP(void);
-void DcMotor_Rotate_CW(void);
-void DcMotor_Rotate_A_CW(void);
+void DcMotor_Rotate(DcMotor_State state);
 
 #endif /* MOTOR_H_ */
